@@ -3,6 +3,20 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
+import MyContext from './UserForm';
+
+
+{/*class Scoring extends Component {
+  render() {
+    return (
+      <div className = "scoring">
+        <p>
+          Alo
+        </p>
+      </div>
+    )
+  }
+}*/}
 
 export class FormUserDetails extends Component {
   continue = e => {
@@ -11,11 +25,15 @@ export class FormUserDetails extends Component {
   };
 
   
+
   render() {
     const { values, handleChange } = this.props; 
     return (
+      
+      
       <MuiThemeProvider>
-        <React.Fragment>
+        <React.Fragment>  
+                             
             <AppBar title = "Ingrese sus datos"></AppBar>
             <TextField              
               hintText="Nombre(s)"
@@ -67,6 +85,7 @@ export class FormUserDetails extends Component {
           
         </React.Fragment>
       </MuiThemeProvider>
+      
     );
   }
 }

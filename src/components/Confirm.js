@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
+import ReactDom from 'react-dom';
 import AppBar from 'material-ui/AppBar';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { List, ListItem, ListItemText } from '@material-ui/core/';
 import RaisedButton from 'material-ui/RaisedButton';
+import MyContext from './UserForm';
+import Style from '../styles.css';
+import Dialog from '@material-ui/core/Dialog';
 
 export class Confirm extends Component {
   continue = e => {
@@ -23,9 +27,15 @@ export class Confirm extends Component {
     return (
       <div width="500px">
       <MuiThemeProvider >
+        {/*<MyContext.Consumer>
+              {(context) => (
+                <p> Something {context} </p>
+              )}
+              </MyContext.Consumer>*/}
         <React.Fragment>              
           <AppBar title="Confirm User Data"/>
           <List>
+            
             <ListItem>
               <ListItemText primary="Nombre(s)" secondary={firstName} /> 
             </ListItem>

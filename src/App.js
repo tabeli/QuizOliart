@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './App.css';
 import { UserForm } from './components/UserForm';
 
-function App() {
-  return (
-    <div className="App">
-      <UserForm/>
-    </div>
-  );
+class App extends Component {
+  render() {
+    return (
+      <div className="App">
+        <UserForm />
+      </div>
+    );
+  }
 }
 
 export default App;
