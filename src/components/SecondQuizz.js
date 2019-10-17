@@ -3,16 +3,14 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
-import {QuizData} from './QuizData';
-import {QuizData2} from './QuizData2';
-import {QuizData3} from './QuizData3';
+import {Individual} from './Individual';
+import {Procedural} from './Procedural';
+import {Innovador} from './Innovador';
 import Style from '../styles.css';
 
 import {MyContext} from './my_context';
 import {MyProvider} from './UserForm';
 //make a context
-
-
 
 const Score = (props) => (
     <div className = "score">
@@ -30,9 +28,9 @@ class Scoring extends Component {
                   //console.log("The arrow function has been fired") 
                 return (
                   <React.Fragment>
-                      <p> Individual score {context.state.individualScore} </p>
-                      <p> Procedural score {context.state.proceduralScore} </p>
-                      <p> Innovation score {context.state.innovationScore} </p>                      
+                      <p> Pragmatico score {context.state.pragmaticScore} </p>
+                      <p> Comunitario score {context.state.communityScore} </p>
+                      <p> Ecologico score {context.state.ecologicScore} </p>                      
                   </React.Fragment>    
                 ); } }
           </MyContext.Consumer>
@@ -41,7 +39,7 @@ class Scoring extends Component {
     }
 }
 
-export class FirstQuizz extends Component {
+export class SecondQuizz extends Component {
     state = {
         currentQuestion: 0,
         myAnswer: null,
@@ -62,41 +60,45 @@ export class FirstQuizz extends Component {
             })
             console.log(this.state.currentQuestion)            
             //increment individual score if answers is I            
-            if(answers[answerIdx] === 'I'){
+            if(answers[answerIdx] === 'P'){
                 console.log("Si hago algo");
-                context.plusOneIScore();
-                localStorage.setItem('individualScoreFQ', context.state.individualScore+1);
-                localStorage.setItem('proceduralScoreFQ', context.state.proceduralScore); 
-                localStorage.setItem('innovationScoreFQ', context.state.innovationScore);                                 
-            } else if(answers[answerIdx] === 'P'){
+                context.plusOnePRScore();
+                localStorage.setItem('pragmaticScoreSQ', context.state.pragmaticScore+1);
+                localStorage.setItem('communityScoreSQ', context.state.communityScore); 
+                localStorage.setItem('ecologicScoreSQ', context.state.ecologicScore);                
+            } else if(answers[answerIdx] === 'C'){
                 console.log("Si hago algo2");
-                context.plusOnePScore();
-                localStorage.setItem('individualScoreFQ', context.state.individualScore);
-                localStorage.setItem('proceduralScoreFQ', context.state.proceduralScore+1); 
-                localStorage.setItem('innovationScoreFQ', context.state.innovationScore);                  
-            } else {
+                context.plusOneCOScore();
+                localStorage.setItem('pragmaticScoreSQ', context.state.pragmaticScore);
+                localStorage.setItem('communityScoreSQ', context.state.communityScore+1); 
+                localStorage.setItem('ecologicScoreSQ', context.state.ecologicScore);                  
+            } else if(answers[answerIdx] === 'E'){
                 console.log("Si hago algo3");
-                context.plusOneINScore();
-                localStorage.setItem('individualScoreFQ', context.state.individualScore);
-                localStorage.setItem('proceduralScoreFQ', context.state.proceduralScore); 
-                localStorage.setItem('innovationScoreFQ', context.state.innovationScore+1);                               
+                context.plusOneECScore();
+                localStorage.setItem('pragmaticScoreSQ', context.state.pragmaticScore);
+                localStorage.setItem('communityScoreSQ', context.state.communityScore); 
+                localStorage.setItem('ecologicScoreSQ', context.state.ecologicScore+1);                                 
             }        
             
-        const rand = localStorage.getItem('randomTest');
-            if(rand === 1) {
-                if (this.state.currentQuestion === QuizData.length - 1) {            
+            console.log(localStorage.getItem('pragmaticScoreSQ'));
+            console.log(localStorage.getItem('communityScoreSQ'));
+            console.log(localStorage.getItem('ecologicScoreSQ'));
+
+            const test = localStorage.getItem('finalTest');
+            if(test === 1) {
+                if (this.state.currentQuestion === Individual.length - 1) {            
                     this.setState({                    
                         isEnd: true                
                     });            
                 } 
-            } else if(rand === 2) {
-                if (this.state.currentQuestion === QuizData2.length - 1) {            
+            } else if(test === 2) {
+                if (this.state.currentQuestion === Procedural.length - 1) {            
                     this.setState({                    
                         isEnd: true                
                     });            
                 } 
             } else {
-                if (this.state.currentQuestion === QuizData3.length - 1) {            
+                if (this.state.currentQuestion === Innovador.length - 1) {            
                     this.setState({                    
                         isEnd: true                
                     });            
@@ -110,38 +112,38 @@ export class FirstQuizz extends Component {
         this.props.prevStep();
     };
 
-    loadQuiz = () => {
-        const min = 1;
-        const max = 3;
-        var rand = Math.floor(Math.random() * max) + 1;
-        console.log("random:", rand);    
+    loadQuiz = () => {           
 
-        localStorage.setItem('randomTest', rand);          
-
+        const indi = localStorage.getItem('individualScoreFQ');
+        const proc = localStorage.getItem('proceduralScoreFQ');
+        const inno = localStorage.getItem('innovationScoreFQ');
+        
         const {currentQuestion} = this.state;
         this.setState(() => {
-            if(rand === 1){
+            if(indi > proc && indi > inno) {
+                localStorage.setItem('finalTest', 1);          
                 return {
-                    questions: QuizData[currentQuestion].question,
-                    options: QuizData[currentQuestion].options,
-                    answers: QuizData[currentQuestion].answers
+                    questions: Individual[currentQuestion].question,
+                    options: Individual[currentQuestion].options,
+                    answers: Individual[currentQuestion].answers
                 }
-            }
-            if(rand === 2){
+            } else if(proc > indi && proc > inno) {
+                localStorage.setItem('finalTest', 2);  
                 return {
-                    questions: QuizData2[currentQuestion].question,
-                    options: QuizData2[currentQuestion].options,
-                    answers: QuizData2[currentQuestion].answers
+                    questions: Procedural[currentQuestion].question,
+                    options: Procedural[currentQuestion].options,
+                    answers: Procedural[currentQuestion].answers
                 }
-            } else {
+            } else if(inno > indi && inno > proc) {
+                localStorage.setItem('finalTest', 3);  
                 return {
-                    questions: QuizData3[currentQuestion].question,
-                    options: QuizData3[currentQuestion].options,
-                    answers: QuizData3[currentQuestion].answers
+                    questions: Innovador[currentQuestion].question,
+                    options: Innovador[currentQuestion].options,
+                    answers: Innovador[currentQuestion].answers
                 }
-            }
-            
+            } 
         })
+                
     }
 
     componentDidMount(){
@@ -154,23 +156,13 @@ export class FirstQuizz extends Component {
                 currentQuestion: this.state.currentQuestion + 1
             })
             //increment individual score if answers is I            
-            if(answers[answerIdx] === 'I'){
-                context.plusOneIScore();
-                //setTimeout(this.nextQuestionHandler, 2000)                                
-                //this.setState({
-                //    individualScore: individualScore + 1                
-                //})                                
-            } else if(answers[answerIdx] === 'P'){
-                context.plusOnePScore();
-                //this.setState({
-                    //proceduralScore: proceduralScore + 1
-                //}) 
-            } else {
-                context.plusOneINScore();
-                //this.setState({
-                    //innovationScore: innovationScore + 1
-                //})                
-            }            
+            if(answers[answerIdx] === 'P'){                
+                context.plusOnePRScore();                             
+            } else if(answers[answerIdx] === 'C'){                
+                context.plusOneCOScore();                              
+            } else {                
+                context.plusOneECScore();                                              
+            }             
             
         }
 
@@ -178,28 +170,28 @@ export class FirstQuizz extends Component {
         componentDidUpdate(prevProps, prevState){
             const {currentQuestion} = this.state;
             if(this.state.currentQuestion !== prevState.currentQuestion) {
-                const rand = localStorage.getItem('randomTest');
+                const test = localStorage.getItem('finalTest');
                 this.setState(() => {
-                    if(rand === 1){
+                    if(test === 1){
                         return {                        
                             //disabled: true,
-                            questions: QuizData[currentQuestion].question,
-                            options: QuizData[currentQuestion].options,
-                            answers: QuizData[currentQuestion].answers
+                            questions: Individual[currentQuestion].question,
+                            options: Individual[currentQuestion].options,
+                            answers: Individual[currentQuestion].answers
                         }    
-                    } else if(rand === 2){
+                    } else if(test === 2){
                         return {                        
                             //disabled: true,
-                            questions: QuizData2[currentQuestion].question,
-                            options: QuizData2[currentQuestion].options,
-                            answers: QuizData2[currentQuestion].answers
+                            questions: Procedural[currentQuestion].question,
+                            options: Procedural[currentQuestion].options,
+                            answers: Procedural[currentQuestion].answers
                         }    
                     } else {
                         return {                        
                             //disabled: true,
-                            questions: QuizData3[currentQuestion].question,
-                            options: QuizData3[currentQuestion].options,
-                            answers: QuizData3[currentQuestion].answers
+                            questions: Innovador[currentQuestion].question,
+                            options: Innovador[currentQuestion].options,
+                            answers: Innovador[currentQuestion].answers
                         } 
                     }
                     
@@ -219,14 +211,12 @@ export class FirstQuizz extends Component {
                 answerIdx: answerIdx,
                 answers: answers,
                 disabled: false 
-            });
-
-            //context.plusOneIScore();
+            });            
         };
 
     render() {
         const { values, handleChange } = this.props;
-        const { questions, options, answers, currentQuestion, userAnswer } = this.state;            
+        const { questions, options, answers, currentQuestion, userAnswer } = this.state;           
         return (            
             <MyProvider>
                 <MuiThemeProvider >
@@ -236,7 +226,7 @@ export class FirstQuizz extends Component {
 
                         <div className="col-sm-4">                         
                             <h2>{questions}</h2>
-                            <span> {`Questions ${currentQuestion} out of ${QuizData.length - 1} `} </span>
+                            <span> {`Questions ${currentQuestion} out of ${Individual.length - 1} `} </span>
                                 {options.map((option, optionIdx) => (
                                     //<MyContext.Consumer>
                                       //  {context => (
@@ -255,7 +245,7 @@ export class FirstQuizz extends Component {
 
                         <Score></Score>
 
-                        {currentQuestion < QuizData.length - 1 &&
+                        {currentQuestion < Individual.length - 1 &&
                             <MyContext.Consumer>
                                 {context => (
                                     <RaisedButton
@@ -270,11 +260,11 @@ export class FirstQuizz extends Component {
                             </MyContext.Consumer>
                         }
 
-                        {currentQuestion === QuizData.length - 1 &&                    
+                        {currentQuestion === Individual.length - 1 &&                    
                             <TextField              
                             hintText="Score"                    
-                            //value={this.state.individualScore}
-                            //defaultValue={values.individualScore}
+                            value={this.state.individualScore}
+                            defaultValue={values.individualScore}
                             //onChange={handleChange('individualScore')}                            
                             /> && 
                             <MyContext.Consumer>
@@ -298,4 +288,4 @@ export class FirstQuizz extends Component {
     }
   }
   
-  export default FirstQuizz;
+  export default SecondQuizz;

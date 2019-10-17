@@ -3,37 +3,33 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
-import MyContext from './UserForm';
+import ReactDOM from 'react-dom';
+import { Dropdown } from 'semantic-ui-react';
+import { Picker } from 'react-native';
 
-
-{/*class Scoring extends Component {
-  render() {
-    return (
-      <div className = "scoring">
-        <p>
-          Alo
-        </p>
-      </div>
-    )
-  }
-}*/}
+const DropdownGender = () => (
+  <Dropdown text='Filter' icon='filter' floating labeled button className='icon'>
+    <Dropdown.Menu>
+      <Dropdown.Header icon='tags' content='Filter by tag' />
+      <Dropdown.Item>Important</Dropdown.Item>
+      <Dropdown.Item>Announcement</Dropdown.Item>
+      <Dropdown.Item>Discussion</Dropdown.Item>
+    </Dropdown.Menu>
+  </Dropdown>
+)
 
 export class FormUserDetails extends Component {
   continue = e => {
     e.preventDefault();
     this.props.nextStep();
-  };
-
-  
+  }; 
 
   render() {
     const { values, handleChange } = this.props; 
     return (
       
-      
       <MuiThemeProvider>
-        <React.Fragment>  
-                             
+        <React.Fragment>                   
             <AppBar title = "Ingrese sus datos"></AppBar>
             <TextField              
               hintText="Nombre(s)"
@@ -42,6 +38,12 @@ export class FormUserDetails extends Component {
               onChange={handleChange('firstName')}                            
             />
             <br />
+
+            <Picker>
+              <Picker.Item label="Java" value="java" />
+              <Picker.Item label="JavaScript" value="js" />
+            </Picker>
+
             <TextField
               hintText="Apellido(s)"
               floatingLabelText="Apellido(s)"            
@@ -57,6 +59,10 @@ export class FormUserDetails extends Component {
               onChange={handleChange('gender')}
             />
             <br/>
+            
+            <div> 
+              <DropdownGender></DropdownGender>  
+            </div> 
 
             <TextField
               hintText="Edad"

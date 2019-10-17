@@ -1,49 +1,47 @@
 import React, { Component } from 'react';
 import FormUserDetails from './FormUserDetails';
 import FirstQuizz from './FirstQuizz';
+import SecondQuizz from './SecondQuizz';
 import Confirm from './Confirm';
 import Success from './Success';
-
-//import React, { Component } from 'react';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import AppBar from 'material-ui/AppBar';
-import TextField from 'material-ui/TextField';
-import RaisedButton from 'material-ui/RaisedButton';
-
-const MyContext = React.createContext();
+import {MyContext} from './my_context';
 
 //create a provider component
-class MyProvider extends Component {
-    state = {
-        individualScore: 0,
-        proceduralScore: 0,
-        innovationScore: 0
-    };
-    render() {
-        return(
-            <MyContext.Provider value="The value">
-                {this.props.children}
-            </MyContext.Provider>
-        )
-    }
-}
-
-const Score = (props) => (
-  <div className = "score">
-    <UserForm/>
-  </div>
-)
-
-//here is the format
-class Scoring extends Component {
+export class MyProvider extends Component {
+  state = {
+      individualScore: 0,
+      proceduralScore: 0,
+      innovationScore: 0,
+      pragmaticScore: 0,
+      communityScore: 0,
+      ecologicScore: 0
+  }
   render() {
-    return (
-      <div className = "scoring">
-        <p>
-          "How do I access my data here"
-        </p>
-      </div>
-    )    
+      return(
+          <MyContext.Provider value={{
+              state: this.state,
+              plusOneIScore: () => this.setState({
+                  individualScore: this.state.individualScore + 1
+              }),
+              plusOnePScore: () => this.setState({
+                  proceduralScore: this.state.proceduralScore + 1
+              }),
+              plusOneINScore: () => this.setState({
+                  innovationScore: this.state.innovationScore + 1
+              }),
+              plusOnePRScore: () => this.setState({
+                pragmaticScore: this.state.pragmaticScore + 1
+              }),
+              plusOneCOScore: () => this.setState({
+                communityScore: this.state.communityScore + 1
+              }),
+              plusOneECScore: () => this.setState({
+                ecologicScore: this.state.ecologicScore + 1
+              })
+          }}>
+              {this.props.children}
+          </MyContext.Provider>
+      )
   }
 }
 
@@ -55,17 +53,25 @@ export class UserForm extends Component {
     email: '',
     occupation: '',
     age: '',
-    gender: '',
-    individualScore: 1,
-    proceduralScore: 1,
-    innovationScore: 1
+    gender: '',   
+    sector: '',
+    onChargeOf: '',
+    revenue: '',
+    status: '',
+    individualScore: 0,
+    proceduralScore: 0,
+    innovationScore: 0 
   };
 
   // Proceed to next step
   nextStep = () => {
     const { step } = this.state;
     this.setState({
-      step: step + 1
+      step: step + 1,
+      individualScore: localStorage.getItem('individualScoreFQ'),
+      proceduralScore: localStorage.getItem('proceduralScoreFQ'),
+      innovationScore: localStorage.getItem('innovationScoreFQ')
+
     });
   };
 
@@ -76,15 +82,6 @@ export class UserForm extends Component {
       step: step - 1
     });
   };
-
-  individualScoreUp = () => {
-      const { individualScore } = this.state;
-      this.setState({
-          individualScore: individualScore + 1
-      });
-  };
-
-
 
   // Handle fields change
   handleChange = input => e => {
@@ -118,18 +115,29 @@ export class UserForm extends Component {
             />
           </MyProvider>
         );
-      case 3:
-        
+      
+      case 3:  
+        return (
+          <MyProvider>
+            <SecondQuizz
+              nextStep={this.nextStep}
+              prevStep={this.prevStep}
+              values={values}
+            />            
+          </MyProvider>          
+        );
+      case 4:      
         return (
           <MyProvider>
             <Confirm
               nextStep={this.nextStep}
               prevStep={this.prevStep}
               values={values}
-            />
-          </MyProvider>
+            />            
+          </MyProvider>          
         );
-      case 4:        
+  
+      case 5:        
         return <Success />;        
     }
   }
