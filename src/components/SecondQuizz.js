@@ -121,6 +121,7 @@ export class SecondQuizz extends Component {
         const {currentQuestion} = this.state;
         this.setState(() => {
             if(indi > proc && indi > inno) {
+                localStorage.setItem('firstResult', "El usuario es Individual");          
                 localStorage.setItem('finalTest', 1);          
                 return {
                     questions: Individual[currentQuestion].question,
@@ -128,6 +129,7 @@ export class SecondQuizz extends Component {
                     answers: Individual[currentQuestion].answers
                 }
             } else if(proc > indi && proc > inno) {
+                localStorage.setItem('firstResult', "El usuario es Procedural");  
                 localStorage.setItem('finalTest', 2);  
                 return {
                     questions: Procedural[currentQuestion].question,
@@ -135,6 +137,7 @@ export class SecondQuizz extends Component {
                     answers: Procedural[currentQuestion].answers
                 }
             } else if(inno > indi && inno > proc) {
+                localStorage.setItem('firstResult', "El usuario es Innovador");  
                 localStorage.setItem('finalTest', 3);  
                 return {
                     questions: Innovador[currentQuestion].question,
@@ -174,21 +177,21 @@ export class SecondQuizz extends Component {
                 this.setState(() => {
                     if(test === 1){
                         return {                        
-                            //disabled: true,
+                            disabled: true,
                             questions: Individual[currentQuestion].question,
                             options: Individual[currentQuestion].options,
                             answers: Individual[currentQuestion].answers
                         }    
                     } else if(test === 2){
                         return {                        
-                            //disabled: true,
+                            disabled: true,
                             questions: Procedural[currentQuestion].question,
                             options: Procedural[currentQuestion].options,
                             answers: Procedural[currentQuestion].answers
                         }    
                     } else {
                         return {                        
-                            //disabled: true,
+                            disabled: true,
                             questions: Innovador[currentQuestion].question,
                             options: Innovador[currentQuestion].options,
                             answers: Innovador[currentQuestion].answers
@@ -243,7 +246,7 @@ export class SecondQuizz extends Component {
                         </div>
                         <br/><br/>
 
-                        <Score></Score>
+                        {/*<Score></Score>*/}
 
                         {currentQuestion < Individual.length - 1 &&
                             <MyContext.Consumer>
@@ -279,7 +282,7 @@ export class SecondQuizz extends Component {
                                 )}
                             </MyContext.Consumer>
                         }
-                        <br/> 
+                        <br/> <br/> <br/> <br/>
                                      
                     </React.Fragment>
                 </MuiThemeProvider> 

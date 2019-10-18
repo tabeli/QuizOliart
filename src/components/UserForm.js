@@ -60,7 +60,9 @@ export class UserForm extends Component {
     status: '',
     individualScore: 0,
     proceduralScore: 0,
-    innovationScore: 0 
+    innovationScore: 0,
+    PickerValueGender:''
+
   };
 
   // Proceed to next step

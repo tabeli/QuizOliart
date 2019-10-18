@@ -13,7 +13,16 @@ export class Confirm extends Component {
 
     pragmaticScore: localStorage.getItem('pragmaticScoreSQ'),
     communityScore: localStorage.getItem('communityScoreSQ'),
-    ecologicScore: localStorage.getItem('ecologicScoreSQ')
+    ecologicScore: localStorage.getItem('ecologicScoreSQ'),
+
+    genderPickerValue: localStorage.getItem('genderPicker'),
+    sectorPickerValue: localStorage.getItem('sectorPicker'),
+    onChargePickerValue: localStorage.getItem('onChargePicker'),
+    incomePickerValue: localStorage.getItem('incomePicker'),
+    statusPickerValue: localStorage.getItem('statusPicker'),
+
+    firstResult: localStorage.getItem('firstResult'),
+    secondResult: ""
   }
   continue = e => {
     e.preventDefault();
@@ -21,6 +30,33 @@ export class Confirm extends Component {
     localStorage.clear();
     this.props.nextStep();    
   };
+
+    loadInfo = () => {    
+            
+        if(this.state.pragmaticScore > this.state.communityScore && this.state.pragmaticScore > this.state.ecologicScore) {
+          this.setState({
+            secondResult: " y también es Pragmatico"                 
+          })
+        } else if(this.state.communityScore > this.state.pragmaticScore && this.state.communityScore > this.state.ecologicScore) {
+          this.setState({
+            secondResult: " y también es Comunitario"  
+          })        
+        } else if(this.state.ecologicScore > this.state.pragmaticScore && this.state.ecologicScore > this.state.communityScore) {
+          this.setState({
+            secondResult: this.state.secondResult + " y también es Ecológico"
+          })
+        } else {
+          this.setState({
+            secondResult: "-> sin segundo resultado definido"
+          })
+          console.log(this.state.secondResult);
+        }      
+      
+    }
+
+    componentDidMount(){
+      this.loadInfo();
+    }
 
   back = e => {
     e.preventDefault();    
@@ -33,45 +69,40 @@ export class Confirm extends Component {
     const {
       values: { firstName, lastName, occupation, age, gender  }
     } = this.props;
-    const { individualScore, proceduralScore, innovationScore, pragmaticScore, communityScore, ecologicScore } = this.state; 
+    const { individualScore, proceduralScore, innovationScore, pragmaticScore, communityScore, ecologicScore, genderPickerValue, sectorPickerValue, onChargePickerValue, incomePickerValue, statusPickerValue, firstResult, secondResult } = this.state; 
     return (      
         <div width="500px">
         <MuiThemeProvider >          
           <React.Fragment>              
             <AppBar title="Confirm User Data"/>
-            <List>              
-              <ListItem>
-                <ListItemText primary="Nombre(s)" secondary={firstName} /> 
-              </ListItem>
-              <ListItem>
-                <ListItemText primary="Apelido(s)" secondary={lastName} /> 
-              </ListItem>
+            <List>                            
               <ListItem>
                 <ListItemText primary="Edad" secondary={age} /> 
               </ListItem>
               <ListItem>
-                <ListItemText primary="Género" secondary={gender} /> 
+                <ListItemText primary="Género" secondary={genderPickerValue} /> 
               </ListItem>
               <ListItem>
-                <ListItemText primary="Ocupación" secondary={occupation} /> 
+                <ListItemText primary="Sector" secondary={sectorPickerValue} /> 
               </ListItem> 
-              <h2>Individual Score</h2> 
-              <h4>{individualScore}</h4>                   
-
-              <h2>Procedural Score</h2>
-              <h4>{proceduralScore}</h4> 
+              <ListItem>
+                <ListItemText primary="Personas a su cargo" secondary={onChargePickerValue} /> 
+              </ListItem>
+              <ListItem>
+                <ListItemText primary="Ingresos" secondary={incomePickerValue} /> 
+              </ListItem>
+              <ListItem>
+                <ListItemText primary="Estado Civil" secondary={statusPickerValue} /> 
+              </ListItem>             
               
-              <h2>Innovation Score</h2>
-              <h4>{innovationScore}</h4> 
-
-              <h2>Pracmatico Score</h2> 
-              <h4>{pragmaticScore}</h4>                   
-
-              <h2>Comunitario Score</h2>
-              <h4>{communityScore}</h4> 
+              <h2>{firstResult.concat(secondResult)}</h2>                   
               
-              <h2>Ecologico Score</h2>
-              <h4>{ecologicScore}</h4> 
+              <h4>Individual Score: {individualScore}</h4>                                 
+              <h4>Procedural Score: {proceduralScore}</h4>              
+              <h4>Innovation Score: {innovationScore}</h4> 
+              <h4>Pracmatico Score: {pragmaticScore}</h4>                 
+              <h4>Comunitario Score: {communityScore}</h4>              
+              <h4>Ecologico Score: {ecologicScore}</h4>
                        
             </List>
             <br />
@@ -90,7 +121,8 @@ export class Confirm extends Component {
               primary={false}
               style={StyleSheet.button}
               onClick={this.continue}
-            ></RaisedButton>                
+            ></RaisedButton>   
+            <br/> <br/> <br/> <br/>
           </React.Fragment>              
         </MuiThemeProvider>      
         </div>      

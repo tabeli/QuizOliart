@@ -182,21 +182,21 @@ export class FirstQuizz extends Component {
                 this.setState(() => {
                     if(rand === 1){
                         return {                        
-                            //disabled: true,
+                            disabled: true,
                             questions: QuizData[currentQuestion].question,
                             options: QuizData[currentQuestion].options,
                             answers: QuizData[currentQuestion].answers
                         }    
                     } else if(rand === 2){
                         return {                        
-                            //disabled: true,
+                            disabled: true,
                             questions: QuizData2[currentQuestion].question,
                             options: QuizData2[currentQuestion].options,
                             answers: QuizData2[currentQuestion].answers
                         }    
                     } else {
                         return {                        
-                            //disabled: true,
+                            disabled: true,
                             questions: QuizData3[currentQuestion].question,
                             options: QuizData3[currentQuestion].options,
                             answers: QuizData3[currentQuestion].answers
@@ -253,7 +253,7 @@ export class FirstQuizz extends Component {
                         </div>
                         <br/><br/>
 
-                        <Score></Score>
+                        {/*<Score></Score>*/}
 
                         {currentQuestion < QuizData.length - 1 &&
                             <MyContext.Consumer>
@@ -289,7 +289,7 @@ export class FirstQuizz extends Component {
                                 )}
                             </MyContext.Consumer>
                         }
-                        <br/> 
+                        <br/> <br/> <br/> <br/> <br/> <br/> 
                                      
                     </React.Fragment>
                 </MuiThemeProvider> 
