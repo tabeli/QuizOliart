@@ -107,13 +107,13 @@ export class Confirm extends Component {
             </List>
             <br />
               
-            <RaisedButton        
+            {/*<RaisedButton        
               label="Regresar"    
               variant="contained"
               primary={true}
               style={StyleSheet.button}
               onClick={this.back}
-            ></RaisedButton>
+            ></RaisedButton>*/}
 
             <RaisedButton     
               label="Siguiente"       

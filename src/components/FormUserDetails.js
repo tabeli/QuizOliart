@@ -37,11 +37,16 @@ export class FormUserDetails extends Component {
             <AppBar title = "Ingrese sus datos"></AppBar>
             
             <br/>
+            <div style={{paddingLeft:'100px', paddingRight:'100px'}}>
+              <h3>"Como parte de una investigación Doctoral estoy aplicando una serie de preguntas, por lo que de antemano les agradezco su participación y colaboración respondiendo a estas. Los resultados serán manejados estadísticamente para efecto de análisis, manteniendo la confidencialidad de la información proporcionada."
+                <br/>
+                Miguel Angel Tinoco Castrejón</h3>
+            </div>
             
             <TextField
               style={{width:'25%', fontSize: 20}}            
-              hintText="Edad"
-              floatingLabelText="Edad" 
+              hintText="Ingresa tu Edad"
+              floatingLabelText="Ingresa tu Edad" 
                            
               required={true}             
               defaultValue={values.age}
@@ -56,7 +61,7 @@ export class FormUserDetails extends Component {
 		            selectedValue={this.state.pickerGenderValue}
 		            onValueChange={(itemValue,itemIndex) => this.setState({pickerGenderValue:itemValue})}
 		            >
-		            <Picker.Item label="Select a option" value=""/>
+		            <Picker.Item label="Selecciona tu género" value=""/>
 		            <Picker.Item label="Masculino" value="Masculino" />
 		            <Picker.Item label="Femenino" value="Femenino"/>
 		        </Picker>		
@@ -70,7 +75,7 @@ export class FormUserDetails extends Component {
 		            selectedValue={this.state.pickerSectorValue}
 		            onValueChange={(itemValue,itemIndex) => this.setState({pickerSectorValue:itemValue})}
 		            >
-                <Picker.Item label="Select a option" value=""/>
+                <Picker.Item label="Selecciona tu sector laboral" value=""/>
                 <Picker.Item label="Manufactura" value="Manufactura" />
                 <Picker.Item label="Servicios" value="Servicios" />
                 <Picker.Item label="Comercio" value="Comercio" />
@@ -86,7 +91,7 @@ export class FormUserDetails extends Component {
 		            selectedValue={this.state.pickerOnChargeValue}
 		            onValueChange={(itemValue,itemIndex) => this.setState({pickerOnChargeValue:itemValue})}
 		            >
-                <Picker.Item label="Select a option" value=""/>
+                <Picker.Item label="Selecciona si tienes personas a tu cargo" value=""/>
                 <Picker.Item label="Si (1 - 10)" value="Si (1 - 10)" />
                 <Picker.Item label="Si (11 - 20)" value="Si (11 - 20)" />
                 <Picker.Item label="Si (21 - 30)" value="Si (21 - 30)" />
@@ -103,7 +108,7 @@ export class FormUserDetails extends Component {
 		            selectedValue={this.state.pickerIncomeValue}
 		            onValueChange={(itemValue,itemIndex) => this.setState({pickerIncomeValue:itemValue})}
 		            >
-                <Picker.Item label="Select a option" value=""/>
+                <Picker.Item label="Selecciona tu nivel de ingresos" value=""/>
                 <Picker.Item label="1-10000" value="1-10000" />
                 <Picker.Item label="10001-20000" value="10001-20000" />
                 <Picker.Item label="20001-30000" value="20001-30000" />
@@ -119,7 +124,7 @@ export class FormUserDetails extends Component {
 		            selectedValue={this.state.pickerStatusValue}
 		            onValueChange={(itemValue,itemIndex) => this.setState({pickerStatusValue:itemValue})}
 		            >
-                <Picker.Item label="Select a option" value=""/>
+                <Picker.Item label="Selecciona tu estado civil" value=""/>
                 <Picker.Item label="Soltero" value="Soltero" />
                 <Picker.Item label="Casado" value="Casado" />
             </Picker>
